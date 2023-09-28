@@ -3,8 +3,11 @@ package com.bookishjava.models.database;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "book")
 public class Book {
-    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String title;
 
     public Long getId() {
