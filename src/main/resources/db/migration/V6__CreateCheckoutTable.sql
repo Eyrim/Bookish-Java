@@ -1,3 +1,0 @@
-CREATE TABLE checkout (
-    id SERIAL PRIMARY KEY
-);

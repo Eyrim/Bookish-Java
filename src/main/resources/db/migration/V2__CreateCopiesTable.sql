@@ -1,0 +1,3 @@
+CREATE TABLE copies (
+    copy_id SERIAL PRIMARY KEY NOT NULL
+);

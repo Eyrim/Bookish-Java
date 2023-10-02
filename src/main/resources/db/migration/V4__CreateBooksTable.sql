@@ -1,2 +1,0 @@
-ALTER TABLE book
-ADD CONSTRAINT fk_author_id FOREIGN KEY (id) REFERENCES author (id);

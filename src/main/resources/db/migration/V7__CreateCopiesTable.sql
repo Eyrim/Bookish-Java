@@ -1,3 +1,0 @@
-CREATE TABLE copy (
-    id SERIAL PRIMARY KEY
-);

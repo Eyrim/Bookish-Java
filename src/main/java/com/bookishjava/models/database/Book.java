@@ -1,34 +1,69 @@
 package com.bookishjava.models.database;
 
+import com.bookishjava.repositories.AuthorRepository;
 import jakarta.persistence.*;
+import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "book")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String title;
+    private Long bookId;
+    private String bookName;
+    private String isbn;
+    @Column(name = "cover_art_url")
+    private String coverArtUrl;
+    private String genre;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "author_id")
+    private Author author;
 
-    public Long getId() {
-        return id;
+    public Long getBookId() {
+        return bookId;
     }
-    public void setId(Long id) {
-        this.id = id;
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
-    public String getTitle() {
-        return title;
+    public String getBookName() {
+        return bookName;
     }
-    public void setTitle(String title) {
-        this.title = title;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+    public String getGenre() {
+        return genre;
+    }
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+    public String getIsbn() {
+        return isbn;
+    }
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+    public Author getAuthor() {
+        return author;
+    }
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+    public String getCoverArtUrl() {
+        return coverArtUrl;
+    }
+    public void setCoverArtUrl(String coverArtUrl) {
+        this.coverArtUrl = coverArtUrl;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((title == null) ? 0 : title.hashCode());
+        result = prime * result + ((bookId == null) ? 0 : bookId.hashCode());
+        result = prime * result + ((bookName == null) ? 0 : bookName.hashCode());
         return result;
     }
     @Override
@@ -40,16 +75,22 @@ public class Book {
         if (getClass() != obj.getClass())
             return false;
         Book other = (Book) obj;
-        if (id == null) {
-            if (other.id != null)
+        if (bookId == null) {
+            if (other.bookId != null)
                 return false;
-        } else if (!id.equals(other.id))
+        } else if (!bookId.equals(other.bookId))
             return false;
-        if (title == null) {
-            if (other.title != null)
+        if (bookName == null) {
+            if (other.bookName != null)
                 return false;
-        } else if (!title.equals(other.title))
+        } else if (!bookName.equals(other.bookName))
             return false;
         return true;
+    }
+
+    public static List<Book> getCloseMatches(List<Book> books, String bookName) {
+        return books.stream()
+                .filter((book) -> book.getBookName().equalsIgnoreCase(bookName))
+                .collect(Collectors.toList());
     }
 }
