@@ -5,16 +5,17 @@ import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "member")
+@Table(name = "card_holder")
 public class CardHolder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "member_name")
     private String name;
-    @Column(name = "date_of_birth")
-    private Date dateOfBirth;
+    @Column(name = "member_date_of_birth")
+    private Date dateOfBirth = new Date(0L);
 
     public Long getId() {
         return id;
